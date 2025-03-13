@@ -1,14 +1,14 @@
 {
-  "name": "myanmar-pro-shop",
+  "name": "myanmar-chat",
   "version": "1.0.0",
-  "description": "A professional online shop built with Netlify and GitHub",
+  "description": "A real-time chat website using Netlify and Pusher",
   "main": "index.js",
   "scripts": {
     "start": "netlify dev",
     "build": "echo 'No build step required'"
   },
   "dependencies": {
-    "netlify-lambda": "^2.0.16"
+    "pusher": "^5.2.0"
   },
   "devDependencies": {
     "netlify-cli": "^17.0.0"
