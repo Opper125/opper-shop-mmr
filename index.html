@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myanmar Pro Shop - အကောင်းဆုံး အွန်လိုင်းဈေးဝယ်မှု</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f4f7f9;
+            color: #2c3e50;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            background: #34495e;
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        header .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            font-size: 2em;
+            font-weight: 600;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+        header nav a:hover {
+            color: #3498db;
+        }
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: white;
+            animation: fadeIn 1s ease-in;
+        }
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        .product {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-details {
+            padding: 20px;
+        }
+        .product h3 {
+            font-size: 1.4em;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+        .product p {
+            font-size: 1em;
+            color: #7f8c8d;
+        }
+        .product .sizes {
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #e67e22;
+        }
+        .product .price {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+        .payment-options {
+            margin-top: 15px;
+        }
+        .payment-options select, .payment-options button {
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .payment-options select {
+            background: #ecf0f1;
+            margin-right: 10px;
+        }
+        .payment-options button {
+            background: #3498db;
+            color: white;
+        }
+        .payment-options button:hover {
+            background: #2980b9;
+        }
+        .payment-details {
+            display: none;
+            margin-top: 10px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 5px;
+        }
+        .payment-details input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .payment-details button {
+            background: #e74c3c;
+            width: 100%;
+        }
+        .payment-details button:hover {
+            background: #c0392b;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #34495e;
+            color: white;
+            margin-top: 40px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            header .nav-container {
+                flex-direction: column;
+            }
+            header nav a {
+                margin: 10px 0;
+            }
+            .hero h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <h1>Myanmar Pro Shop</h1>
+            <nav>
+                <a href="#home">ပင်မစာမျက်နှာ</a>
+                <a href="#products">ကုန်ပစ္စည်းများ</a>
+                <a href="uploadorder.html">အော်ဒါတင်ရန်</a>
+                <a href="admin.html">စီမံခန့်ခွဲရန်</a>
+            </nav>
+        </div>
+    </header>
+    <div class="hero">
+        <h2>မြန်မာနိုင်ငံ၏ အကောင်းဆုံး အွန်လိုင်းဈေးဝယ်မှု</h2>
+        <p>အရည်အသွေးမြင့် ကုန်ပစ္စည်းများနှင့် အကောင်းဆုံး ဝန်ဆောင်မှု</p>
+    </div>
+    <div class="container" id="products"></div>
+    <footer>
+        <p>© 2025 Myanmar Pro Shop - အားလုံးခွင့်ပြုချက် ရယူထားသည်။</p>
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" width="30">
+    </footer>
+
+    <script>
+        // Real-Time ဒေတာရယူခြင်း
+        function fetchProducts() {
+            fetch('/.netlify/functions/data')
+                .then(response => response.json())
+                .then(data => {
+                    const productsDiv = document.getElementById('products');
+                    productsDiv.innerHTML = '';
+                    data.products.forEach(product => {
+                        productsDiv.innerHTML += `
+                            <div class="product">
+                                <img src="${product.img}" alt="${product.name}">
+                                <div class="product-details">
+                                    <h3>${product.name}</h3>
+                                    <p class="sizes">အရွယ်အစား: ${product.sizes.join(', ')}</p>
+                                    <p class="price">${product.price} ကျပ်</p>
+                                    <div class="payment-options">
+                                        <select id="payment-method-${product.id}">
+                                            <option value="">ငွေပေးချေမှု ရွေးပါ</option>
+                                            <option value="kpay">Kpay</option>
+                                            <option value="wave">Wave</option>
+                                        </select>
+                                        <button onclick="showPaymentDetails('${product.id}')">ဝယ်မည်</button>
+                                    </div>
+                                    <div id="payment-details-${product.id}" class="payment-details">
+                                        <p>ငွေလွှဲရန် ဖုန်းနံပါတ်: 09786284670</p>
+                                        <p id="selected-method-${product.id}"></p>
+                                        <input type="text" id="transaction-id-${product.id}" placeholder="ငွေလွှဲ လုပ်ငန်းစဉ်နံပါတ်">
+                                        <input type="file" id="receipt-${product.id}" accept="image/*">
+                                        <button onclick="uploadReceipt('${product.id}')">ပြေစာတင်မည်</button>
+                                    </div>
+                                </div>
+                            </div>`;
+                    });
+                })
+                .catch(error => console.error('Error fetching products:', error));
+        }
+
+        function showPaymentDetails(productId) {
+            const paymentMethod = document.getElementById(`payment-method-${productId}`).value;
+            const paymentDetails = document.getElementById(`payment-details-${productId}`);
+            const selectedMethodText = document.getElementById(`selected-method-${productId}`);
+
+            if (paymentMethod) {
+                paymentDetails.style.display = 'block';
+                selectedMethodText.innerText = `ရွေးချယ်ထားသော နည်းလမ်း: ${paymentMethod.toUpperCase()}`;
+            } else {
+                alert('ငွေပေးချေမှု နည်းလမ်းတစ်ခုရွေးပါ။');
+            }
+        }
+
+        function uploadReceipt(productId) {
+            const transactionId = document.getElementById(`transaction-id-${productId}`).value;
+            const receiptFile = document.getElementById(`receipt-${productId}`).files[0];
+
+            if (transactionId && receiptFile) {
+                const order = {
+                    productId,
+                    transactionId,
+                    status: 'စောင့်ဆိုင်းနေဆဲ',
+                    timestamp: new Date().toISOString()
+                };
+                fetch('/.netlify/functions/data', {
+                    method: 'POST',
+                    body: JSON.stringify({ type: 'order', data: order })
+                })
+                .then(() => {
+                    alert(`အော်ဒါ ID ${productId} အတွက် ငွေလွှဲပြေစာ တင်ပြီးပါပြီ!\nနံပါတ်: ${transactionId}`);
+                })
+                .catch(error => console.error('Error uploading receipt:', error));
+            } else {
+                alert('ငွေလွှဲ လုပ်ငန်းစဉ်နံပါတ်နှင့် ပြေစာ ဓာတ်ပုံ ထည့်ပါ။');
+            }
+        }
+
+        // စာမျက်နှာဖွင့်တိုင်း ဒေတာရယူ
+        fetchProducts();
+    </script>
+</body>
+</html>
