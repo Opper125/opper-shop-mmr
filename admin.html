@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>စီမံခန့်ခွဲရန် - Myanmar Pro Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #f4f7f9;
+            color: #2c3e50;
+            padding: 20px;
+        }
+        header {
+            background: #34495e;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        header .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            font-size: 2em;
+            font-weight: 600;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+        header nav a:hover {
+            color: #3498db;
+        }
+        .orders-container {
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+        .order {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease-in;
+        }
+        .order p {
+            margin: 5px 0;
+        }
+        .order-buttons {
+            margin-top: 10px;
+        }
+        .order-buttons button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .update-btn {
+            background: #2ecc71;
+            color: white;
+        }
+        .update-btn:hover {
+            background: #27ae60;
+        }
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+        }
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #34495e;
+            color: white;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            header .nav-container {
+                flex-direction: column;
+            }
+            header nav a {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <h1>Myanmar Pro Shop</h1>
+            <nav>
+                <a href="index.html">ပင်မစာမျက်နှာ</a>
+                <a href="index.html#products">ကုန်ပစ္စည်းများ</a>
+                <a href="uploadorder.html">အော်ဒါတင်ရန်</a>
+                <a href="#admin">စီမံခန့်ခွဲရန်</a>
+            </nav>
+        </div>
+    </header>
+    <div class="orders-container" id="orders"></div>
+    <footer>
+        <p>© 2025 Myanmar Pro Shop - အားလုံးခွင့်ပြုချက် ရယူထားသည်။</p>
+    </footer>
+
+    <script>
+        // Real-Time ဒေတာရယူခြင်း
+        function fetchOrders() {
+            fetch('/.netlify/functions/data')
+                .then(response => response.json())
+                .then(data => {
+                    const ordersDiv = document.getElementById('orders');
+                    ordersDiv.innerHTML = '';
+                    data.orders.forEach(order => {
+                        ordersDiv.innerHTML += `
+                            <div class="order">
+                                <p><strong>အော်ဒါ ID:</strong> ${order.id}</p>
+                                <p><strong>ကုန်ပစ္စည်း:</strong> ${order.productName || order.productId}</p>
+                                ${order.size ? `<p><strong>အရွယ်အစား:</strong> ${order.size}</p>` : ''}
+                                ${order.quantity ? `<p><strong>အရေအတွက်:</strong> ${order.quantity}</p>` : ''}
+                                ${order.price ? `<p><strong>ဈေး:</strong> ${order.price} ကျပ်</p>` : ''}
+                                ${order.phone ? `<p><strong>ဖုန်း:</strong> ${order.phone}</p>` : ''}
+                                ${order.address ? `<p><strong>လိပ်စာ:</strong> ${order.address}</p>` : ''}
+                                ${order.deliveryDate ? `<p><strong>ပို့ဆောင်မည့်နေ့:</strong> ${order.deliveryDate}</p>` : ''}
+                                ${order.note ? `<p><strong>မှတ်ချက်:</strong> ${order.note}</p>` : ''}
+                                ${order.transactionId ? `<p><strong>ငွေလွှဲ နံပါတ်:</strong> ${order.transactionId}</p>` : ''}
+                                <p><strong>အခြေအနေ:</strong> ${order.status}</p>
+                                <div class="order-buttons">
+                                    <button class="update-btn" onclick="updateOrderStatus('${order.id}')">အခြေအနေ ပြောင်းမည်</button>
+                                    <button class="delete-btn" onclick="deleteOrder('${order.id}')">ဖျက်မည်</button>
+                                </div>
+                            </div>`;
+                    });
+                })
+                .catch(error => console.error('Error fetching orders:', error));
+        }
+
+        function updateOrderStatus(orderId) {
+            const newStatus = prompt('အခြေအနေ အသစ်ထည့်ပါ (ဥပမာ: ပြီးစီး၊ ပို့ဆောင်ပြီး):');
+            if (newStatus) {
+                fetch('/.netlify/functions/data', {
+                    method: 'POST',
+                    body: JSON.stringify({ type: 'updateOrder', id: orderId, status: newStatus })
+                })
+                .then(() => fetchOrders())
+                .catch(error => console.error('Error updating order:', error));
+            }
+        }
+
+        function deleteOrder(orderId) {
+            if (confirm('ဤအော်ဒါကို ဖျက်မှာ သေချာလား?')) {
+                fetch('/.netlify/functions/data', {
+                    method: 'POST',
+                    body: JSON.stringify({ type: 'deleteOrder', id: orderId })
+                })
+                .then(() => fetchOrders())
+                .catch(error => console.error('Error deleting order:', error));
+            }
+        }
+
+        // စာမျက်နှာဖွင့်တိုင်း ဒေတာရယူ
+        fetchOrders();
+    </script>
+</body>
+</html>
